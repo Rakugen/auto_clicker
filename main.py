@@ -42,8 +42,9 @@ class ClickMouse(threading.Thread):
         self.stop_clicking()
         self.program_running = False
 
-    # This function overwrote threads run() and will constantly execute whilst 'program_running' and 'running' is true.
-    # Inner loop is what the main program will be doing while it is running, in our case clicking 3 times and delay.
+    # This function overwrote threads run() and will execute on thread start, will constantly execute whilst
+    # 'program_running' and 'running' is true.
+    # Inner loop is what the main program will be doing while it is running, in our case clicking 3 times then delay.
     def run(self):
         while self.program_running:
             while self.running:
@@ -51,26 +52,29 @@ class ClickMouse(threading.Thread):
                 mouse.click(self.button)
                 mouse.click(self.button)
                 time.sleep(self.delay)
-            # time.sleep(0.1)
 
 
-
+# pynput Controller for mouse inputs
 mouse = Controller()
-# Instantiate our inheritted ClickMouse class
-click_thread = ClickMouse(DELAY, BUTTON)
-click_thread.start()
+# Instantiate and start our ClickMouse class with global variables
+mouse_thread = ClickMouse(DELAY, BUTTON)
+mouse_thread.start()
 
 
+# Control flow function that will toggle start/stop/exit on our mouse_thread
 def on_press(key):
+    # Toggles mouse_thread on/off which will be running the mouse clicks
     if key == START_STOP_KEY:
-        if click_thread.running:
-            click_thread.stop_clicking()
+        if mouse_thread.running:
+            mouse_thread.stop_clicking()
         else:
-            click_thread.start_clicking()
+            mouse_thread.start_clicking()
+    # Exit mouse_thread and stops listener
     elif key == EXIT_KEY:
-        click_thread.exit()
+        mouse_thread.exit()
         listener.stop()
 
 
+# Creates a new listener that will monitor for keyboard inputs
 with Listener(on_press=on_press) as listener:
     listener.join()
