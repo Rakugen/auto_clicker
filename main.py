@@ -23,8 +23,8 @@ class ClickMouse(threading.Thread):
     # self.running and self.program_running will be used as control flow.
     def __init__(self, delay, button):
         super().__init__()
-        self.delay = DELAY
-        self.button = BUTTON
+        self.delay = delay
+        self.button = button
         self.running = False
         self.program_running = True
 
