@@ -3,11 +3,14 @@
 In an attempt to solve a problem I encountered in one of my current hobbies: how can I click faster without destroying my hands in cookie clicker?
 This python program uses threading and pynput module to create a toggle that will press mouse click repeatedly. 
 ## Installation
-
+Install the latest version of Python and pynput.
 ## How to use
-
+1. Run the python file.
+2. Press Start/Stop key, default is ` (tilde), to start clicking.
+3. When needed press Start/Stop key again to toggle off/on.
+4. Press End key, default is =, to close program.
 ## Credits
-
+All credit  goes to this blogpost: https://nitratine.net/blog/post/python-auto-clicker/
 ## License
 
 MIT License
